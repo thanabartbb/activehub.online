@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="th" class="h-full bg-[#050507]">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>AGENSDKDOS — Carbon Olive AI Console</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter, Space Grotesk & IBM Plex Sans Thai -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'IBM Plex Sans Thai', 'Noto Sans Thai', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            gold: {
+              100: '#DCE6AC',
+              200: '#C3D18B',
+              300: '#A8B86A', // Carbon Olive primary accent
+              400: '#8E9D51',
+              500: '#727F43',
+              600: '#596436',
+            },
+            dark: {
+              surface: '#0B0F0D',
+              card: '#111612',
+              cardBorder: '#344034',
+              border: '#283129',
+              muted: '#9CA99B'
+            }
+          },
+          boxShadow: {
+            'gold-glow': '0 0 24px -4px rgba(168, 184, 106, 0.22)',
+            'gold-btn': '0 5px 18px 0px rgba(168, 184, 106, 0.20)',
+            'card-subtle': '0 10px 28px -5px rgba(0, 0, 0, 0.72), inset 0 1px 0 rgba(255,255,255,0.045)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+      box-sizing: border-box;
+    }
+    
+    body {
+      touch-action: manipulation;
+      background-color: #070907;
+      color: #edf3ea;
+      overflow: hidden;
+      font-family: 'Inter', 'IBM Plex Sans Thai', 'Noto Sans Thai', -apple-system, sans-serif;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Subtle luxury wave float animation - Slowed down for silky smooth motion */
+    @keyframes waveFloat {
+      0% { transform: translateY(0px) rotate(0deg); opacity: 0.65; }
+      50% { transform: translateY(-7px) rotate(0.35deg); opacity: 0.85; }
+      100% { transform: translateY(0px) rotate(0deg); opacity: 0.65; }
+    }
+
+    .animate-wave {
+      animation: waveFloat 18s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    /* Gold bead pulse glowing effect - Gentle rhythmic breathing */
+    @keyframes beadPulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px #e7d7c1); }
+      50% { transform: scale(1.28); filter: drop-shadow(0 0 10px #ffe5bd); }
+    }
+    .animate-bead {
+      animation: beadPulse 6.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    /* 2.5D Isometric floating hover - Calm, cinematic float */
+    @keyframes isoFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+    }
+    .animate-iso {
+      animation: isoFloat 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    /* Smooth page fade transition */
+    .screen-view {
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    button, .cursor-pointer {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    /* Carbon Olive material layer: restrained 2.5D depth */
+    :root {
+      --olive: #a8b86a;
+      --carbon-edge: rgba(255, 255, 255, 0.055);
+      --carbon-shadow: 0 12px 30px rgba(0, 0, 0, 0.34), inset 0 1px 0 var(--carbon-edge);
+    }
+
+    [class*="bg-\\[\\#121316\\]"] {
+      background: linear-gradient(145deg, rgba(32, 41, 32, 0.94), rgba(17, 22, 18, 0.98)) !important;
+      box-shadow: var(--carbon-shadow);
+    }
+
+    [class*="bg-\\[\\#121316\\]"]:hover {
+      border-color: rgba(168, 184, 106, 0.42) !important;
+      transform: translateY(-2px);
+    }
+
+    [class*="text-gold-300"] { color: var(--olive) !important; }
+    [class*="bg-gold-300"] { background-color: var(--olive) !important; }
+    [class*="hover\\:bg-gold-200"]:hover { background-color: #c3d18b !important; }
+    [class*="border-gold-300"] { border-color: rgba(168, 184, 106, 0.48) !important; }
+
+    #login-modal > div {
+      background: linear-gradient(145deg, #202920 0%, #111612 55%, #0b0f0d 100%) !important;
+      border-top: 1px solid rgba(195, 209, 139, 0.24);
+      box-shadow: 0 -18px 48px rgba(0, 0, 0, 0.52), inset 0 1px 0 rgba(255,255,255,0.055);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body class="h-[100dvh] w-full flex items-center justify-center p-0 sm:p-2 bg-[#050507] select-none">
+
+  <!-- Desktop Screen Quick Switcher Bar -->
+  <aside class="hidden xl:flex fixed top-4 left-6 z-50 items-center gap-3 bg-zinc-900/90 backdrop-blur-md border border-zinc-800 px-4 py-2 rounded-full text-xs text-zinc-300 shadow-2xl">
+    <div class="w-2.5 h-2.5 rounded-full bg-gold-300 animate-pulse"></div>
+    <span class="font-semibold text-white">AGENSDKDOS [Fresh Install]</span>
+    <span class="text-zinc-600">|</span>
+    <button onclick="switchScreen('landing')" class="hover:text-gold-300 transition-colors">Landing</button>
+    <button onclick="switchScreen('home')" class="hover:text-gold-300 transition-colors">Home (Unlinked)</button>
+    <button onclick="switchScreen('projects')" class="hover:text-gold-300 transition-colors">Projects (Empty)</button>
+    <button onclick="switchScreen('detail')" class="hover:text-gold-300 transition-colors">Template Flow</button>
+    <button onclick="toggleRightDrawer()" class="hover:text-gold-300 transition-colors text-gold-300 font-semibold border-l border-zinc-700 pl-3 flex items-center gap-1.5">
+      <span>Right Menu</span>
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </aside>
+
+  <!-- Standard 9:16 Aspect Ratio Frame -->
+  <main class="relative h-[100dvh] max-h-[100dvh] aspect-[9/16] w-auto max-w-full bg-[#090A0D] sm:rounded-[36px] sm:border-[2px] sm:border-zinc-800/80 shadow-[0_20px_60px_rgba(0,0,0,0.9)] flex flex-col overflow-hidden">
+
+    <!-- Luxury Ambient Golden Wave Backdrop Layer (shared by all views) -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      <svg class="w-full h-full animate-wave" viewBox="0 0 360 640" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="goldCurveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#A8B86A" stop-opacity="0.65"/>
+            <stop offset="50%" stop-color="#9E805B" stop-opacity="0.32"/>
+            <stop offset="100%" stop-color="#3A2D1B" stop-opacity="0.04"/>
+          </linearGradient>
+          <radialGradient id="dotGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFF8EC"/>
+            <stop offset="60%" stop-color="#A8B86A"/>
+            <stop offset="100%" stop-color="#A8B86A" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- Fine glowing wave curves -->
+        <path d="M-40,430 C70,390 160,530 400,410" fill="none" stroke="url(#goldCurveGrad)" stroke-width="1.2"/>
+        <path d="M-50,415 C90,450 200,500 410,380" fill="none" stroke="url(#goldCurveGrad)" stroke-width="0.75" stroke-dasharray="3 4"/>
+        <path d="M-20,390 C120,460 250,520 390,480" fill="none" stroke="url(#goldCurveGrad)" stroke-width="0.5"/>
+        <!-- Radiant Gold Node -->
+        <circle cx="295" cy="435" r="4" fill="#FFF8EC" class="animate-bead" />
+        <circle cx="295" cy="435" r="11" fill="url(#dotGlow)" />
+      </svg>
+    </div>
+
+    <!-- SCREEN 1: LANDING SCREEN -->
+    <section id="screen-landing" class="screen-view active flex flex-col justify-between items-center text-center px-6 pt-14 pb-8 h-full w-full relative z-10">
+      
+      <!-- Top Branding Section -->
+      <div class="flex flex-col items-center mt-4">
+        <!-- Crisp 2.5D Isometric Monographic Core -->
+        <div class="relative w-32 h-32 flex items-center justify-center mb-5 animate-iso filter drop-shadow-[0_16px_32px_rgba(213,190,158,0.28)]">
+          <svg class="w-full h-full" viewBox="0 0 140 140" fill="none">
+            <defs>
+              <linearGradient id="isoTop" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#EDF3EA" />
+                <stop offset="100%" stop-color="#E5D3BD" />
+              </linearGradient>
+              <linearGradient id="isoRight" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#8E9D51" />
+                <stop offset="100%" stop-color="#7A603E" />
+              </linearGradient>
+              <linearGradient id="isoLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#C3D18B" />
+                <stop offset="100%" stop-color="#9C7F59" />
+              </linearGradient>
+              <linearGradient id="isoAccent" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#554127" />
+                <stop offset="100%" stop-color="#D7BF9F" />
+              </linearGradient>
+            </defs>
+            
+            <!-- Isometric Core Blocks (2.5D Sharp Polyhedral Geometry) -->
+            <!-- Back plate -->
+            <polygon points="70,12 110,35 110,75 70,52" fill="url(#isoAccent)" opacity="0.6"/>
+            <!-- Upper Left Node -->
+            <polygon points="70,16 98,32 70,48 42,32" fill="url(#isoTop)" />
+            <polygon points="42,32 70,48 70,80 42,64" fill="url(#isoLeft)" />
+            <polygon points="70,48 98,32 98,64 70,80" fill="url(#isoRight)" />
+            
+            <!-- Lower Orbiting 2.5D Facets -->
+            <polygon points="106,56 128,69 108,81 86,68" fill="url(#isoTop)" />
+            <polygon points="86,68 108,81 108,102 86,89" fill="url(#isoLeft)" />
+            <polygon points="108,81 128,69 128,90 108,102" fill="url(#isoRight)" />
+
+            <polygon points="34,68 56,81 36,93 14,80" fill="url(#isoTop)" />
+            <polygon points="14,80 36,93 36,114 14,101" fill="url(#isoLeft)" />
+            <polygon points="36,93 56,81 56,102 36,114" fill="url(#isoRight)" />
+
+            <!-- Central Golden Core -->
+            <circle cx="70" cy="74" r="9" fill="#EDF3EA" stroke="#8E9D51" stroke-width="2.5" />
+            <circle cx="70" cy="74" r="3" fill="#8A6E4B" />
+          </svg>
+        </div>
+
+        <h1 class="text-xl font-bold tracking-[0.24em] text-white uppercase mb-1.5">AGENSDKDOS</h1>
+        <p class="text-[9px] font-semibold tracking-[0.32em] text-zinc-400 uppercase">BUILD. AUTOMATE. DEPLOY.</p>
+      </div>
+
+      <!-- Center Typography -->
+      <div class="my-auto max-w-[280px]">
+        <h2 class="text-3xl font-bold text-white leading-[1.22] tracking-tight mb-2.5">
+          Turn ideas into working systems.
+        </h2>
+        <p class="text-sm font-normal text-zinc-400 leading-relaxed">
+          Your ideas. Deployed by agents.
+        </p>
+      </div>
+
+      <!-- Bottom Action Button + Social Login Row -->
+      <div class="w-full pb-2 space-y-4">
+        <button onclick="showLoginModal()" class="w-full py-4 px-6 bg-gold-300 hover:bg-gold-200 active:scale-[0.98] text-black font-semibold text-[15px] rounded-full flex items-center justify-center gap-2.5 transition-all duration-200 shadow-gold-btn">
+          <svg class="w-4 h-4 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Get Started</span>
+        </button>
+
+        <div class="flex items-center gap-2">
+          <span class="flex-1 h-px bg-zinc-800"></span>
+          <span class="text-[10px] font-medium tracking-wide text-zinc-500 uppercase">or continue with</span>
+          <span class="flex-1 h-px bg-zinc-800"></span>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2.5">
+          <button onclick="simulateLogin('GitHub')" aria-label="Continue with GitHub" class="h-12 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-zinc-600 flex items-center justify-center transition active:scale-95">
+            <svg class="w-5 h-5 fill-white" viewBox="0 0 24 24">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.21.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.49 5.92.43.37.81 1.1.81 2.22 0 1.6-.02 2.89-.02 3.29 0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/>
+            </svg>
+          </button>
+
+          <button onclick="simulateLogin('Google')" aria-label="Continue with Google" class="h-12 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-zinc-600 flex items-center justify-center transition active:scale-95">
+            <svg class="w-5 h-5" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v2.97h3.86c2.26-2.09 3.56-5.17 3.56-8.79z"/>
+              <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-2.97c-1.08.72-2.45 1.15-4.07 1.15-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+              <path fill="#FBBC05" d="M5.27 14.31A7.14 7.14 0 0 1 4.9 12c0-.8.14-1.57.37-2.31V6.6H1.29A11.93 11.93 0 0 0 0 12c0 1.93.46 3.75 1.29 5.4l3.98-3.09z"/>
+              <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.6l3.98 3.09C6.22 6.86 8.87 4.75 12 4.75z"/>
+            </svg>
+          </button>
+
+          <button onclick="simulateLogin('AGENSDKDOS ID')" aria-label="Continue with AGENSDKDOS ID" class="h-12 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-gold-300/50 flex items-center justify-center transition active:scale-95">
+            <svg class="w-5 h-5" viewBox="0 0 120 120" fill="none">
+              <polygon points="60,16 86,31 60,46 34,31" fill="#EDF3EA" />
+              <polygon points="34,31 60,46 60,76 34,61" fill="#C3D18B" />
+              <polygon points="60,46 86,31 86,61 60,76" fill="#8E9D51" />
+              <circle cx="60" cy="74" r="6" fill="#EDF3EA" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: HOME DASHBOARD (Fresh / Unlinked State) -->
+    <section id="screen-home" class="screen-view hidden flex-col h-full w-full relative z-10">
+      
+      <!-- Top Navigation Header -->
+      <header class="pt-5 px-5 pb-2 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-2.5">
+          <!-- 2.5D Micro Logo -->
+          <div class="w-7 h-7 flex items-center justify-center">
+            <svg class="w-full h-full" viewBox="0 0 120 120" fill="none">
+              <polygon points="60,16 86,31 60,46 34,31" fill="#EDF3EA" />
+              <polygon points="34,31 60,46 60,76 34,61" fill="#C3D18B" />
+              <polygon points="60,46 86,31 86,61 60,76" fill="#8E9D51" />
+              <circle cx="60" cy="74" r="6" fill="#EDF3EA" />
+            </svg>
+          </div>
+          <span class="text-sm font-bold tracking-[0.18em] text-white uppercase">AGENSDKDOS</span>
+        </div>
+
+        <div class="flex items-center gap-2.5">
+          <!-- Unlinked Guest Profile Avatar -->
+          <button onclick="showConnectModal()" class="w-8 h-8 rounded-full bg-zinc-900/90 border border-zinc-700/60 flex items-center justify-center text-zinc-400 hover:text-gold-300 hover:border-gold-300 transition">
+            <svg class="w-4 h-4 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </button>
+          <!-- Hamburger Button (Opens Right Drawer) -->
+          <button class="text-zinc-300 hover:text-white p-1" onclick="openRightDrawer()" aria-label="Open Right Menu">
+            <svg class="w-6 h-6 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+              <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Scrollable Main Content -->
+      <div class="flex-1 overflow-y-auto no-scrollbar px-5 pb-20 pt-1 space-y-4">
+        
+        <!-- Hero Title Section -->
+        <div class="pt-1">
+          <h2 class="text-[25px] font-bold text-white tracking-tight leading-snug">
+            Turn ideas into<br>working systems.
+          </h2>
+          <p class="text-xs text-zinc-400 mt-1">
+            Build, run, and scale with AI agents.
+          </p>
+        </div>
+
+        <!-- AI Prompt Box Card -->
+        <div class="bg-[#121316] border border-zinc-800/90 rounded-2xl p-3.5 shadow-card-subtle">
+          <textarea id="home-prompt-input" rows="2" placeholder="Ask AGENSDKDOS to build, fix, or automate..." class="w-full bg-transparent resize-none text-[13px] text-white placeholder-zinc-500 focus:outline-none leading-relaxed"></textarea>
+          
+          <div class="flex items-center justify-between pt-2.5 mt-1 border-t border-zinc-800/50">
+            <div class="flex items-center gap-2">
+              <button onclick="showConnectModal()" class="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white transition-colors" title="Attach file or repo">
+                <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                  <path d="M12 5v14M5 12h14" stroke-linecap="round"/>
+                </svg>
+              </button>
+
+              <button onclick="showToast('Active Engine: Agent 2.5 Standard')" class="flex items-center gap-1.5 bg-zinc-900 border border-zinc-800 rounded-full px-3 py-1.5 text-xs text-zinc-300 hover:border-zinc-700 transition">
+                <span class="font-medium">Agent 2.5</span>
+                <svg class="w-3.5 h-3.5 text-zinc-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+
+            <button onclick="showToast('Listening for voice prompt...')" class="w-9 h-9 rounded-full bg-gold-300 hover:bg-gold-200 text-black flex items-center justify-center shadow-gold-glow transition-all active:scale-95">
+              <svg class="w-4 h-4 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Action 3-Cards Row -->
+        <div class="grid grid-cols-3 gap-2">
+          <!-- Card 1: New Chat -->
+          <div onclick="showToast('Creating new agent session...')" class="bg-[#121316] hover:bg-[#18191E] border border-zinc-800/80 rounded-2xl p-3 flex flex-col justify-between h-[120px] cursor-pointer transition active:scale-[0.97]">
+            <div class="w-8 h-8 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300">
+              <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="14" height="14" rx="3" stroke-linecap="round"/>
+                <path d="M10 7v6M7 10h6" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-xs font-semibold text-white">New Chat</h4>
+              <p class="text-[9.5px] text-zinc-400 leading-tight mt-0.5">Start from scratch</p>
+              <div class="mt-1 text-zinc-400">
+                <svg class="w-3 h-3 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Automations -->
+          <div onclick="switchScreen('projects')" class="bg-[#121316] hover:bg-[#18191E] border border-zinc-800/80 rounded-2xl p-3 flex flex-col justify-between h-[120px] cursor-pointer transition active:scale-[0.97]">
+            <div class="w-8 h-8 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300">
+              <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-xs font-semibold text-white">Automations</h4>
+              <p class="text-[9.5px] text-zinc-400 leading-tight mt-0.5">Run in background</p>
+              <div class="mt-1 text-zinc-400">
+                <svg class="w-3 h-3 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Codebase (Connect Prompt) -->
+          <div onclick="showConnectModal()" class="bg-[#121316] hover:bg-[#18191E] border border-zinc-800/80 rounded-2xl p-3 flex flex-col justify-between h-[120px] cursor-pointer transition active:scale-[0.97] group">
+            <div class="w-8 h-8 rounded-xl bg-zinc-900 border border-zinc-800 group-hover:border-gold-300/40 flex items-center justify-center text-gold-300">
+              <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                <circle cx="18" cy="18" r="3"/>
+                <circle cx="6" cy="6" r="3"/>
+                <path d="M13 6h3a2 2 0 0 1 2 2v7M6 9v12"/>
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-xs font-semibold text-white">Codebase</h4>
+              <p class="text-[9.5px] text-gold-300/80 leading-tight mt-0.5">Connect repo</p>
+              <div class="mt-1 text-gold-300">
+                <svg class="w-3 h-3 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fresh Initial State: No Repos Connected Banner with 2.5D Monograph -->
+        <div class="bg-[#121316] border border-zinc-800/80 rounded-2xl p-4 relative overflow-hidden">
+          <div class="flex items-center justify-between">
+            <div class="max-w-[190px]">
+              <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-gold-300/10 border border-gold-300/20 text-[10px] text-gold-300 font-medium mb-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-gold-300 animate-pulse"></span>
+                Fresh Setup
+              </div>
+              <h4 class="text-sm font-semibold text-white">No repository linked</h4>
+              <p class="text-[11px] text-zinc-400 leading-normal mt-1">
+                Link GitHub, GitLab, or start a sandbox agent without cloning.
+              </p>
+              <button onclick="showConnectModal()" class="mt-3 px-3.5 py-1.5 bg-gold-300 hover:bg-gold-200 text-black text-xs font-semibold rounded-full flex items-center gap-1.5 transition">
+                <span>Connect Source</span>
+                <svg class="w-3 h-3 stroke-current stroke-2" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+
+            <!-- 2.5D Isometric Crisp Floating Monograph -->
+            <div class="w-24 h-24 shrink-0 relative flex items-center justify-center">
+              <svg class="w-full h-full filter drop-shadow-[0_8px_16px_rgba(231,215,193,0.18)]" viewBox="0 0 100 100" fill="none">
+                <polygon points="50,15 76,30 50,45 24,30" fill="#F4E8D7"/>
+                <polygon points="24,30 50,45 50,75 24,60" fill="#727F43"/>
+                <polygon points="50,45 76,30 76,60 50,75" fill="#596436"/>
+                
+                <!-- Floating mini satellite blocks -->
+                <polygon points="20,18 32,25 20,32 8,25" fill="#EDF3EA"/>
+                <polygon points="8,25 20,32 20,44 8,37" fill="#727F43"/>
+                <polygon points="20,32 32,25 32,37 20,44" fill="#596436"/>
+
+                <polygon points="80,55 92,62 80,69 68,62" fill="#EDF3EA"/>
+                <polygon points="68,62 80,69 80,81 68,74" fill="#727F43"/>
+                <polygon points="80,69 92,62 92,74 80,81" fill="#596436"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Starter Templates (Zero mock user history) -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-sm font-semibold text-white">Starter Blueprints</h3>
+            <span class="text-[11px] text-zinc-500">Ready to deploy</span>
+          </div>
+
+          <div class="space-y-2">
+            <!-- Blueprint 1 -->
+            <div onclick="switchScreen('detail')" class="bg-[#121316] hover:bg-[#18191E] border border-zinc-800/70 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition active:scale-[0.99]">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-gold-300">
+                  <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                    <circle cx="6" cy="18" r="3"/>
+                    <circle cx="18" cy="6" r="3"/>
+                    <circle cx="18" cy="18" r="3"/>
+                    <path d="M8.5 16.5l7-7M9 18h6"/>
+                  </svg>
+                </div>
+                <div>
+                  <h5 class="text-xs font-semibold text-white">Interactive Chat Flow Agent</h5>
+                  <p class="text-[10px] text-zinc-500">Standard Starter Template</p>
+                </div>
+              </div>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-gold-300">Inspect</span>
+            </div>
+
+            <!-- Blueprint 2 -->
+            <div onclick="showConnectModal()" class="bg-[#121316] hover:bg-[#18191E] border border-zinc-800/70 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition active:scale-[0.99]">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400">
+                  <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                  </svg>
+                </div>
+                <div>
+                  <h5 class="text-xs font-semibold text-white">Scheduled CI/CD Automation</h5>
+                  <p class="text-[10px] text-zinc-500">Connect repo to enable</p>
+                </div>
+              </div>
+              <span class="text-[10px] text-zinc-600">+ Link</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SCREEN 3: PROJECTS LIST (Fresh / No DB Linked State) -->
+    <section id="screen-projects" class="screen-view hidden flex-col h-full w-full relative z-10">
+      
+      <!-- Projects Header -->
+      <header class="pt-5 px-5 pb-2 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-2">
+          <div class="w-6 h-6 flex items-center justify-center">
+            <svg class="w-full h-full" viewBox="0 0 120 120" fill="none">
+              <polygon points="60,16 86,31 60,46 34,31" fill="#EDF3EA" />
+              <polygon points="34,31 60,46 60,76 34,61" fill="#C3D18B" />
+              <polygon points="60,46 86,31 86,61 60,76" fill="#8E9D51" />
+              <circle cx="60" cy="74" r="6" fill="#EDF3EA" />
+            </svg>
+          </div>
+          <div>
+            <span class="text-[11px] font-bold tracking-[0.2em] text-white uppercase block leading-tight">AGENSDKDOS</span>
+            <span class="text-[7.5px] font-medium tracking-[0.22em] text-zinc-400 uppercase">BUILD. AUTOMATE. DEPLOY.</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button class="text-zinc-300 hover:text-white p-1" onclick="showToast('Search active templates...')">
+            <svg class="w-5 h-5 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </button>
+          <button class="text-zinc-300 hover:text-white p-1" onclick="openRightDrawer()" aria-label="Open Right Menu">
+            <svg class="w-6 h-6 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+              <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Scrollable Projects List -->
+      <div class="flex-1 overflow-y-auto no-scrollbar px-5 pb-20 pt-1 space-y-3.5">
+        
+        <h2 class="text-2xl font-bold text-white tracking-tight pt-1">
+          Projects
+        </h2>
+
+        <!-- Filter Tab Buttons -->
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+          <button onclick="setProjectFilter(this, 'all')" class="project-filter-pill px-4 py-1.5 rounded-full text-xs font-semibold bg-gold-300 text-black shrink-0 transition">
+            All
+          </button>
+          <button onclick="setProjectFilter(this, 'agents')" class="project-filter-pill px-4 py-1.5 rounded-full text-xs font-semibold bg-[#141518] text-zinc-400 border border-zinc-800 hover:text-white shrink-0 transition">
+            Agents
+          </button>
+          <button onclick="setProjectFilter(this, 'automations')" class="project-filter-pill px-4 py-1.5 rounded-full text-xs font-semibold bg-[#141518] text-zinc-400 border border-zinc-800 hover:text-white shrink-0 transition">
+            Automations
+          </button>
+          <button onclick="setProjectFilter(this, 'repos')" class="project-filter-pill px-4 py-1.5 rounded-full text-xs font-semibold bg-[#141518] text-zinc-400 border border-zinc-800 hover:text-white shrink-0 transition">
+            Repos
+          </button>
+        </div>
+
+        <!-- 2.5D Monographic Crisp Empty State Showcase -->
+        <div class="bg-[#121316] border border-zinc-800/80 rounded-2xl p-6 text-center flex flex-col items-center justify-center my-2 shadow-card-subtle">
+          
+          <!-- Sharp 2.5D Isometric Monograph: Floating Vault / Grid -->
+          <div class="w-32 h-32 my-1 flex items-center justify-center animate-iso">
+            <svg class="w-full h-full filter drop-shadow-[0_12px_24px_rgba(231,215,193,0.22)]" viewBox="0 0 140 140" fill="none">
+              <defs>
+                <linearGradient id="gridGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#A8B86A" stop-opacity="0.3"/>
+                  <stop offset="100%" stop-color="#727F43" stop-opacity="0.05"/>
+                </linearGradient>
+              </defs>
+              
+              <!-- Isometric Ground Plane Grid -->
+              <polygon points="70,75 115,100 70,125 25,100" stroke="#414B29" stroke-width="1.2" fill="url(#gridGrad)" />
+              <line x1="47.5" y1="87.5" x2="92.5" y2="112.5" stroke="#727F43" stroke-width="0.8" stroke-dasharray="2 3"/>
+              <line x1="92.5" y1="87.5" x2="47.5" y2="112.5" stroke="#727F43" stroke-width="0.8" stroke-dasharray="2 3"/>
+
+              <!-- 2.5D Floating Isometric Prism Cubes -->
+              <!-- Main Central Prism -->
+              <polygon points="70,30 102,48 70,66 38,48" fill="#EDF3EA"/>
+              <polygon points="38,48 70,66 70,102 38,84" fill="#8E9D51"/>
+              <polygon points="70,66 102,48 102,84 70,102" fill="#596436"/>
+
+              <!-- Outer Floating Sharp Nodes -->
+              <polygon points="108,24 122,32 108,40 94,32" fill="#FFF2DE"/>
+              <polygon points="94,32 108,40 108,54 94,46" fill="#727F43"/>
+              <polygon points="108,40 122,32 122,46 108,54" fill="#7A603E"/>
+
+              <polygon points="32,70 46,78 32,86 18,78" fill="#FFF2DE"/>
+              <polygon points="18,78 32,86 32,100 18,92" fill="#727F43"/>
+              <polygon points="32,86 46,78 46,92 32,100" fill="#7A603E"/>
+
+              <!-- Golden Core Spark -->
+              <circle cx="70" cy="48" r="4" fill="#FFF" />
+            </svg>
+          </div>
+
+          <h3 class="text-base font-bold text-white tracking-tight mt-2">
+            No Repositories Linked
+          </h3>
+          <p class="text-xs text-zinc-400 max-w-[240px] leading-relaxed mt-1">
+            Connect your Git repository or choose a ready-to-use agent pipeline to get started.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col gap-2 w-full mt-5 max-w-[260px]">
+            <button onclick="showConnectModal()" class="w-full py-2.5 px-4 bg-gold-300 hover:bg-gold-200 active:scale-[0.98] text-black font-semibold text-xs rounded-full flex items-center justify-center gap-2 transition shadow-gold-btn">
+              <svg class="w-4 h-4 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
+                <circle cx="18" cy="18" r="3"/>
+                <circle cx="6" cy="6" r="3"/>
+                <path d="M13 6h3a2 2 0 0 1 2 2v7M6 9v12"/>
+              </svg>
+              <span>Connect GitHub / GitLab</span>
+            </button>
+            <button onclick="switchScreen('detail')" class="w-full py-2.5 px-4 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs font-medium rounded-full transition">
+              Explore Demo Template
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Help Note -->
+        <div class="p-3 bg-zinc-900/40 rounded-xl border border-zinc-800/50 flex items-center gap-3">
+          <div class="text-gold-300">
+            <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="16" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+          </div>
+          <p class="text-[11px] text-zinc-400 leading-normal">
+            AGENSDKDOS isolates each workflow into secure ephemeral sandboxes.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SCREEN 4: PROJECT DETAIL (Clean Template Starter View) -->
+    <section id="screen-detail" class="screen-view hidden flex-col h-full w-full relative z-10">
+      
+      <!-- Detail Header -->
+      <header class="pt-5 px-5 pb-2 flex items-center justify-between shrink-0">
+        <!-- Back Button -->
+        <button onclick="switchScreen('projects')" class="text-white hover:text-gold-300 p-1 -ml-1 transition">
+          <svg class="w-6 h-6 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <div class="flex items-center gap-2">
+          <div class="w-6 h-6 flex items-center justify-center">
+            <svg class="w-full h-full" viewBox="0 0 120 120" fill="none">
+              <polygon points="60,16 86,31 60,46 34,31" fill="#EDF3EA" />
+              <polygon points="34,31 60,46 60,76 34,61" fill="#C3D18B" />
+              <polygon points="60,46 86,31 86,61 60,76" fill="#8E9D51" />
+              <circle cx="60" cy="74" r="6" fill="#EDF3EA" />
+            </svg>
+          </div>
+          <div>
+            <span class="text-[11px] font-bold tracking-[0.2em] text-white uppercase block leading-tight">AGENSDKDOS</span>
+            <span class="text-[7.5px] font-medium tracking-[0.22em] text-zinc-400 uppercase">BUILD. AUTOMATE. DEPLOY.</span>
+          </div>
+        </div>
+
+        <button onclick="openRightDrawer()" class="text-zinc-300 hover:text-white p-1 -mr-1" aria-label="Open Project Options">
+          <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+            <circle cx="5" cy="12" r="2"/>
+            <circle cx="12" cy="12" r="2"/>
+            <circle cx="19" cy="12" r="2"/>
+          </svg>
+        </button>
+      </header>
+
+      <!-- Scrollable Detail Body -->
+      <div class="flex-1 overflow-y-auto no-scrollbar px-5 pb-24 pt-1 space-y-3.5">
+        
+        <!-- Project Title Header with 2.5D Monograph Icon -->
+        <div class="flex items-start gap-3.5 pt-1">
+          <div class="w-14 h-14 rounded-2xl bg-[#141519] border border-zinc-700/60 flex items-center justify-center p-2.5 shrink-0 shadow-md">
+            <svg class="w-full h-full" viewBox="0 0 100 100" fill="none">
+              <polygon points="50,15 78,32 50,49 22,32" fill="#EDF3EA"/>
+              <polygon points="22,32 50,49 50,81 22,64" fill="#8E9D51"/>
+              <polygon points="50,49 78,32 78,64 50,81" fill="#596436"/>
+              <circle cx="50" cy="49" r="6" fill="#FFF" />
+            </svg>
+          </div>
+          <div class="pt-0.5">
+            <div class="flex items-center gap-2">
+              <h2 class="text-2xl font-bold text-white tracking-tight leading-tight">Chat Flow</h2>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-semibold bg-gold-300/20 text-gold-300 border border-gold-300/40">Blueprint</span>
+            </div>
+            <p class="text-xs text-zinc-400 mt-0.5">official/agents-sdk-template</p>
+            
+            <div class="flex flex-wrap gap-1 mt-2">
+              <span class="px-2 py-0.5 rounded-full text-[9.5px] font-medium bg-zinc-900 border border-zinc-800 text-zinc-300">agents</span>
+              <span class="px-2 py-0.5 rounded-full text-[9.5px] font-medium bg-zinc-900 border border-zinc-800 text-zinc-300">cloudflare</span>
+              <span class="px-2 py-0.5 rounded-full text-[9.5px] font-medium bg-zinc-900 border border-zinc-800 text-zinc-300">workflow</span>
+              <span class="px-2 py-0.5 rounded-full text-[9.5px] font-medium bg-zinc-900 border border-zinc-800 text-zinc-300">ai</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detail Sub Tabs -->
+        <div class="flex items-center border-b border-zinc-800/80 pt-1">
+          <button class="pb-2 px-1 text-xs font-semibold text-white border-b-2 border-gold-300 mr-5">
+            Overview
+          </button>
+          <button onclick="showToast('Connect repo to see commit history')" class="pb-2 px-1 text-xs font-semibold text-zinc-400 hover:text-white mr-5 transition">
+            Commits
+          </button>
+          <button onclick="showToast('Automations ready to configure')" class="pb-2 px-1 text-xs font-semibold text-zinc-400 hover:text-white transition">
+            Automations
+          </button>
+        </div>
+
+        <!-- About Card with Metrics -->
+        <div class="bg-[#121316] border border-zinc-800/80 rounded-2xl p-3.5 shadow-sm">
+          <div class="flex items-center justify-between mb-1">
+            <h4 class="text-xs font-semibold text-white">About Blueprint</h4>
+            <svg class="w-3.5 h-3.5 text-zinc-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </div>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            Standard template to build and deploy chat workflows with AI agents.
+          </p>
+
+          <!-- 3 Stats Columns -->
+          <div class="grid grid-cols-3 gap-2 pt-3 mt-2.5 border-t border-zinc-800/60 text-left">
+            <div class="flex items-center gap-2">
+              <div class="text-zinc-400">
+                <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                  <circle cx="6" cy="18" r="3"/>
+                  <circle cx="18" cy="6" r="3"/>
+                  <path d="M8.5 16.5l7-7"/>
+                </svg>
+              </div>
+              <div>
+                <span class="text-sm font-bold text-white block leading-tight">1</span>
+                <span class="text-[9.5px] text-zinc-400 block">Release</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <div class="text-zinc-400">
+                <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                  <line x1="6" y1="3" x2="6" y2="15"/>
+                  <circle cx="18" cy="6" r="3"/>
+                  <circle cx="6" cy="18" r="3"/>
+                  <path d="M18 9a9 9 0 0 1-9 9"/>
+                </svg>
+              </div>
+              <div>
+                <span class="text-sm font-bold text-white block leading-tight">main</span>
+                <span class="text-[9.5px] text-zinc-400 block">Branch</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <div class="text-zinc-400">
+                <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                </svg>
+              </div>
+              <div>
+                <span class="text-sm font-bold text-white block leading-tight">1</span>
+                <span class="text-[9.5px] text-zinc-400 block">Pipeline</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pipeline Setup Steps -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-xs font-semibold text-white">Pipeline Tasks</h4>
+            <span class="text-[10px] text-gold-300">Ready</span>
+          </div>
+
+          <div class="space-y-2">
+            <div class="bg-[#121316] border border-zinc-800/70 rounded-2xl p-2.5 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-gold-300 text-xs font-bold">
+                  1
+                </div>
+                <span class="text-xs font-medium text-zinc-200">Initialize Edge Worker Runtime</span>
+              </div>
+              <span class="text-[10px] text-emerald-400 font-medium">Configured</span>
+            </div>
+
+            <div class="bg-[#121316] border border-zinc-800/70 rounded-2xl p-2.5 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-gold-300 text-xs font-bold">
+                  2
+                </div>
+                <span class="text-xs font-medium text-zinc-200">Connect Cloudflare AI binding</span>
+              </div>
+              <span class="text-[10px] text-zinc-500">Auto</span>
+            </div>
+
+            <div class="bg-[#121316] border border-zinc-800/70 rounded-2xl p-2.5 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-gold-300 text-xs font-bold">
+                  3
+                </div>
+                <span class="text-xs font-medium text-zinc-200">Deploy Agent Endpoint</span>
+              </div>
+              <span class="text-[10px] text-zinc-500">Standby</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Floating CTA Pill: Run Agent -->
+      <div class="absolute bottom-4 left-5 right-5 z-30">
+        <button onclick="triggerRunAgent()" class="w-full py-3.5 px-6 bg-gold-300 hover:bg-gold-200 active:scale-[0.98] text-black font-semibold text-sm rounded-full flex items-center justify-center gap-2 transition-all shadow-gold-btn">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          <span>Run Template Agent</span>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- GLOBAL BOTTOM NAVIGATION BAR -->
+    <nav id="bottom-nav-bar" class="hidden absolute bottom-0 left-0 right-0 h-15 bg-[#0A0B0E]/95 backdrop-blur-md border-t border-zinc-850/80 px-4 flex items-center justify-around z-40 py-2">
+      
+      <!-- Home Tab -->
+      <button onclick="switchScreen('home')" id="tab-home" class="nav-tab-item flex flex-col items-center justify-center text-white relative">
+        <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span class="text-[10px] mt-1 font-medium">Home</span>
+        <span class="nav-indicator w-3.5 h-0.5 bg-white rounded-full mt-0.5"></span>
+      </button>
+
+      <!-- Projects Tab -->
+      <button onclick="switchScreen('projects')" id="tab-projects" class="nav-tab-item flex flex-col items-center justify-center text-zinc-500 hover:text-zinc-300 relative">
+        <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+        </svg>
+        <span class="text-[10px] mt-1 font-medium">Projects</span>
+        <span class="nav-indicator hidden w-1.5 h-1.5 bg-white rounded-full mt-0.5"></span>
+      </button>
+
+      <!-- Automations Tab -->
+      <button onclick="showToast('Connect repository to enable live automations')" id="tab-automations" class="nav-tab-item flex flex-col items-center justify-center text-zinc-500 hover:text-zinc-300 relative">
+        <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        <span class="text-[10px] mt-1 font-medium">Automations</span>
+        <span class="nav-indicator hidden w-1.5 h-1.5 bg-white rounded-full mt-0.5"></span>
+      </button>
+
+      <!-- Account Tab -->
+      <button onclick="showConnectModal()" id="tab-account" class="nav-tab-item flex flex-col items-center justify-center text-zinc-500 hover:text-zinc-300 relative">
+        <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span class="text-[10px] mt-1 font-medium">Account</span>
+        <span class="nav-indicator hidden w-1.5 h-1.5 bg-white rounded-full mt-0.5"></span>
+      </button>
+
+    </nav>
+
+    <!-- Connect Repository / Git Provider Sheet Modal -->
+    <div id="connect-modal" class="hidden absolute inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end justify-center">
+      <div class="w-full bg-[#121316] border-t border-zinc-800 rounded-t-[28px] p-5 pb-8 space-y-4">
+        <div class="w-10 h-1 bg-zinc-700 rounded-full mx-auto mb-1"></div>
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-base font-bold text-white">Connect Codebase</h3>
+            <p class="text-xs text-zinc-400">Link your provider to start building</p>
+          </div>
+          <button onclick="hideConnectModal()" class="w-8 h-8 rounded-full bg-zinc-800/80 text-zinc-400 hover:text-white flex items-center justify-center">
+            ✕
+          </button>
+        </div>
+
+        <div class="space-y-2 pt-1">
+          <button onclick="simulateConnect('GitHub')" class="w-full p-3.5 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-gold-300/50 flex items-center justify-between text-left transition">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-zinc-800 flex items-center justify-center text-white font-bold text-sm">
+                GH
+              </div>
+              <div>
+                <h5 class="text-xs font-semibold text-white">Continue with GitHub</h5>
+                <p class="text-[10px] text-zinc-500">Public & private repositories</p>
+              </div>
+            </div>
+            <span class="text-xs text-gold-300">Link</span>
+          </button>
+
+          <button onclick="simulateConnect('GitLab')" class="w-full p-3.5 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-gold-300/50 flex items-center justify-between text-left transition">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-zinc-800 flex items-center justify-center text-white font-bold text-sm">
+                GL
+              </div>
+              <div>
+                <h5 class="text-xs font-semibold text-white">Continue with GitLab</h5>
+                <p class="text-[10px] text-zinc-500">Self-hosted or cloud</p>
+              </div>
+            </div>
+            <span class="text-xs text-gold-300">Link</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sign In / Login Sheet Modal -->
+    <div id="login-modal" class="hidden absolute inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end justify-center">
+      <div class="w-full bg-[#121316] border-t border-zinc-800 rounded-t-[28px] p-5 pb-8 space-y-4">
+        <div class="w-10 h-1 bg-zinc-700 rounded-full mx-auto mb-1"></div>
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-base font-bold text-white">Sign in to AGENSDKDOS</h3>
+            <p class="text-xs text-zinc-400">Choose how you'd like to continue</p>
+          </div>
+          <button onclick="hideLoginModal()" class="w-8 h-8 rounded-full bg-zinc-800/80 text-zinc-400 hover:text-white flex items-center justify-center">
+            ✕
+          </button>
+        </div>
+
+        <div class="space-y-2 pt-1">
+          <button onclick="simulateLogin('GitHub')" class="w-full p-3.5 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-gold-300/50 flex items-center justify-between text-left transition">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-zinc-800 flex items-center justify-center">
+                <svg class="w-4.5 h-4.5 fill-white" viewBox="0 0 24 24">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.21.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.49 5.92.43.37.81 1.1.81 2.22 0 1.6-.02 2.89-.02 3.29 0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/>
+                </svg>
+              </div>
+              <div>
+                <h5 class="text-xs font-semibold text-white">Continue with GitHub</h5>
+                <p class="text-[10px] text-zinc-500">Sign in with your GitHub account</p>
+              </div>
+            </div>
+            <span class="text-xs text-gold-300">Go</span>
+          </button>
+
+          <button onclick="simulateLogin('Google')" class="w-full p-3.5 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-gold-300/50 flex items-center justify-between text-left transition">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-zinc-800 flex items-center justify-center">
+                <svg class="w-4.5 h-4.5" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v2.97h3.86c2.26-2.09 3.56-5.17 3.56-8.79z"/>
+                  <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-2.97c-1.08.72-2.45 1.15-4.07 1.15-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+                  <path fill="#FBBC05" d="M5.27 14.31A7.14 7.14 0 0 1 4.9 12c0-.8.14-1.57.37-2.31V6.6H1.29A11.93 11.93 0 0 0 0 12c0 1.93.46 3.75 1.29 5.4l3.98-3.09z"/>
+                  <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.6l3.98 3.09C6.22 6.86 8.87 4.75 12 4.75z"/>
+                </svg>
+              </div>
+              <div>
+                <h5 class="text-xs font-semibold text-white">Continue with Google</h5>
+                <p class="text-[10px] text-zinc-500">Sign in with your Google account</p>
+              </div>
+            </div>
+            <span class="text-xs text-gold-300">Go</span>
+          </button>
+
+          <button onclick="simulateLogin('AGENSDKDOS ID')" class="w-full p-3.5 rounded-2xl bg-zinc-900 border border-gold-300/30 hover:border-gold-300/60 flex items-center justify-between text-left transition">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-zinc-800 flex items-center justify-center">
+                <svg class="w-4.5 h-4.5" viewBox="0 0 120 120" fill="none">
+                  <polygon points="60,16 86,31 60,46 34,31" fill="#EDF3EA" />
+                  <polygon points="34,31 60,46 60,76 34,61" fill="#C3D18B" />
+                  <polygon points="60,46 86,31 86,61 60,76" fill="#8E9D51" />
+                  <circle cx="60" cy="74" r="6" fill="#EDF3EA" />
+                </svg>
+              </div>
+              <div>
+                <h5 class="text-xs font-semibold text-white">Continue with AGENSDKDOS ID</h5>
+                <p class="text-[10px] text-zinc-500">Sign in with email & password</p>
+              </div>
+            </div>
+            <span class="text-xs text-gold-300">Go</span>
+          </button>
+        </div>
+
+        <p class="text-[10px] text-zinc-500 text-center pt-1">
+          By continuing, you agree to the Terms of Service and Privacy Policy.
+        </p>
+      </div>
+    </div>
+
+    <!-- DEDICATED RIGHT DRAWER SIDEBAR PANEL (หน้ารายการแถบขวา) -->
+    <div id="right-drawer-overlay" class="pointer-events-none fixed sm:absolute inset-0 z-50 bg-black/65 backdrop-blur-[3px] opacity-0 transition-opacity duration-300 flex justify-end" onclick="closeRightDrawer(event)">
+      
+      <!-- Right Sliding Sheet Container -->
+      <aside id="right-drawer-panel" class="w-[84%] max-w-[310px] h-full bg-[#0E0F14] border-l border-zinc-800/90 shadow-[-16px_0_36px_rgba(0,0,0,0.85)] flex flex-col justify-between transform translate-x-full transition-transform duration-300 ease-out z-10" onclick="event.stopPropagation()">
+        
+        <!-- Drawer Top Bar & Profile Info -->
+        <div class="p-5 pb-3 border-b border-zinc-850">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 flex items-center justify-center">
+                <svg class="w-full h-full" viewBox="0 0 120 120" fill="none">
+                  <polygon points="60,16 86,31 60,46 34,31" fill="#EDF3EA" />
+                  <polygon points="34,31 60,46 60,76 34,61" fill="#C3D18B" />
+                  <polygon points="60,46 86,31 86,61 60,76" fill="#8E9D51" />
+                  <circle cx="60" cy="74" r="5.5" fill="#EDF3EA" />
+                </svg>
+              </div>
+              <span class="text-xs font-bold tracking-[0.2em] text-white uppercase">AGENSDKDOS</span>
+            </div>
+
+            <!-- Close Button (✕) -->
+            <button onclick="closeRightDrawer()" class="w-7 h-7 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white flex items-center justify-center transition hover:border-zinc-700">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Workspace Badge / Profile Selector -->
+          <div class="bg-[#14151B] border border-zinc-800 rounded-xl p-2.5 flex items-center justify-between cursor-pointer hover:border-zinc-700 transition" onclick="showToast('Active Workspace: Sandbox 01')">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-750 flex items-center justify-center text-gold-300 font-bold text-xs">
+                SD
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-white leading-tight">Default Sandbox</h4>
+                <p class="text-[10px] text-zinc-400 mt-0.5">Standalone Runtime</p>
+              </div>
+            </div>
+            <span class="text-[9px] px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">Ready</span>
+          </div>
+        </div>
+
+        <!-- Drawer Scrollable Menu List -->
+        <div class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-4 text-xs">
+          
+          <!-- Section 1: AI Engine Services (บริการหลัก) -->
+          <div>
+            <div class="flex items-center justify-between px-2 mb-2">
+              <span class="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">AI Services Hub</span>
+              <span class="text-[9px] text-gold-300">4 Active</span>
+            </div>
+
+            <div class="space-y-1">
+              <!-- Service Item 1: AGENSDKLABDOS -->
+              <button onclick="handleDrawerServiceClick('AGENSDKLABDOS', 'agensdklab-core/runtime-agent')" class="w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-left bg-zinc-900/50 hover:bg-zinc-800/80 border border-zinc-800/60 transition group">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-6 h-6 rounded-lg bg-zinc-800 flex items-center justify-center text-gold-300 text-[10px] font-bold">
+                    AS
+                  </div>
+                  <span class="font-medium text-zinc-200 group-hover:text-white">AGENSDKLABDOS</span>
+                </div>
+                <div class="w-2 h-2 rounded-full bg-[#38bdf8]"></div>
+              </button>
+
+              <!-- Service Item 2: CHATGPT -->
+              <button onclick="handleDrawerServiceClick('CHATGPT', 'openai/gpt-4o-pipeline')" class="w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-left bg-zinc-900/50 hover:bg-zinc-800/80 border border-zinc-800/60 transition group">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-6 h-6 rounded-lg bg-zinc-800 flex items-center justify-center text-emerald-400 text-[10px] font-bold">
+                    GPT
+                  </div>
+                  <span class="font-medium text-zinc-200 group-hover:text-white">CHATGPT (GPT-4o)</span>
+                </div>
+                <div class="w-2 h-2 rounded-full bg-[#34d399]"></div>
+              </button>
+
+              <!-- Service Item 3: CLAUDE AI -->
+              <button onclick="handleDrawerServiceClick('CLAUDE AI', 'anthropic/claude-3.5-sonnet')" class="w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-left bg-zinc-900/50 hover:bg-zinc-800/80 border border-zinc-800/60 transition group">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-6 h-6 rounded-lg bg-zinc-800 flex items-center justify-center text-amber-300 text-[10px] font-bold">
+                    CL
+                  </div>
+                  <span class="font-medium text-zinc-200 group-hover:text-white">CLAUDE AI (Sonnet)</span>
+                </div>
+                <div class="w-2 h-2 rounded-full bg-[#f59e0b]"></div>
+              </button>
+
+              <!-- Service Item 4: CURSOR -->
+              <button onclick="handleDrawerServiceClick('CURSOR', 'cursor-sh/workspace-indexer')" class="w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-left bg-zinc-900/50 hover:bg-zinc-800/80 border border-zinc-800/60 transition group">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-6 h-6 rounded-lg bg-zinc-800 flex items-center justify-center text-purple-400 text-[10px] font-bold">
+                    CR
+                  </div>
+                  <span class="font-medium text-zinc-200 group-hover:text-white">CURSOR Editor API</span>
+                </div>
+                <div class="w-2 h-2 rounded-full bg-[#c084fc]"></div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Section 2: Management & Infrastructure (การจัดการระบบ) -->
+          <div>
+            <div class="px-2 mb-2">
+              <span class="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">Management</span>
+            </div>
+
+            <div class="space-y-1">
+              <button onclick="showToast('Opening API Key Vault...'); closeRightDrawer();" class="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-left text-zinc-300 hover:text-white hover:bg-zinc-850 transition">
+                <svg class="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                </svg>
+                <span>API Keys & Secrets</span>
+              </button>
+
+              <button onclick="showConnectModal(); closeRightDrawer();" class="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-left text-zinc-300 hover:text-white hover:bg-zinc-850 transition">
+                <svg class="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                </svg>
+                <span>Git Providers & Repos</span>
+              </button>
+
+              <button onclick="showToast('Token usage: 1.2M tokens remaining'); closeRightDrawer();" class="w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-left text-zinc-300 hover:text-white hover:bg-zinc-850 transition">
+                <div class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                  </svg>
+                  <span>Quota & Metrics</span>
+                </div>
+                <span class="text-[9px] px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-400 font-mono">Free Tier</span>
+              </button>
+
+              <button onclick="showToast('Sandboxes: Isolated micro-VM active'); closeRightDrawer();" class="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-left text-zinc-300 hover:text-white hover:bg-zinc-850 transition">
+                <svg class="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                </svg>
+                <span>Sandboxes & Containers</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Section 3: Preferences & Support -->
+          <div>
+            <div class="px-2 mb-2">
+              <span class="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">Preferences</span>
+            </div>
+
+            <div class="space-y-1">
+              <button onclick="showToast('Version documentation loaded'); closeRightDrawer();" class="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-left text-zinc-300 hover:text-white hover:bg-zinc-850 transition">
+                <svg class="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                </svg>
+                <span>Documentation & Guides</span>
+              </button>
+
+              <button onclick="showToast('System settings initialized'); closeRightDrawer();" class="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-left text-zinc-300 hover:text-white hover:bg-zinc-850 transition">
+                <svg class="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <span>Environment Settings</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Drawer Bottom Status Footer -->
+        <div class="p-3.5 border-t border-zinc-850 bg-[#0B0C10] flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-[10px] text-zinc-400">Edge Gateway Active</span>
+          </div>
+          <span class="text-[9.5px] font-mono text-zinc-600">v2.5-preview</span>
+        </div>
+
+      </aside>
+    </div>
+
+    <!-- Interactive Toast Notification Popup -->
+    <div id="toast" class="absolute top-6 left-1/2 -translate-x-1/2 bg-zinc-900/95 border border-gold-300/40 text-gold-200 text-xs px-3.5 py-1.5 rounded-full shadow-2xl transition-all duration-500 opacity-0 pointer-events-none z-50 transform -translate-y-2 flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-gold-300 animate-ping"></span>
+      <span id="toast-text">Notification</span>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
