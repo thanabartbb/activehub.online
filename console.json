@@ -207,349 +207,750 @@
       "tag": "button",
       "id": null,
       "label": "Landing",
-      "onClick": [{"action": "switchScreen", "args": ["landing"]}]
+      "onClick": [
+        {
+          "action": "switchScreen",
+          "args": [
+            "landing"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Home (Unlinked)",
-      "onClick": [{"action": "switchScreen", "args": ["home"]}]
+      "onClick": [
+        {
+          "action": "switchScreen",
+          "args": [
+            "home"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Projects (Empty)",
-      "onClick": [{"action": "switchScreen", "args": ["projects"]}]
+      "onClick": [
+        {
+          "action": "switchScreen",
+          "args": [
+            "projects"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Template Flow",
-      "onClick": [{"action": "switchScreen", "args": ["detail"]}]
+      "onClick": [
+        {
+          "action": "switchScreen",
+          "args": [
+            "detail"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Right Menu",
-      "onClick": [{"action": "toggleRightDrawer", "args": []}]
+      "onClick": [
+        {
+          "action": "toggleRightDrawer",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Get Started",
-      "onClick": [{"action": "showLoginModal", "args": []}]
+      "onClick": [
+        {
+          "action": "showLoginModal",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Continue with GitHub",
-      "onClick": [{"action": "simulateLogin", "args": ["GitHub"]}]
+      "onClick": [
+        {
+          "action": "simulateLogin",
+          "args": [
+            "GitHub"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Continue with Google",
-      "onClick": [{"action": "simulateLogin", "args": ["Google"]}]
+      "onClick": [
+        {
+          "action": "simulateLogin",
+          "args": [
+            "Google"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Continue with AGENSDKDOS ID",
-      "onClick": [{"action": "simulateLogin", "args": ["AGENSDKDOS ID"]}]
+      "onClick": [
+        {
+          "action": "simulateLogin",
+          "args": [
+            "AGENSDKDOS ID"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": null,
-      "onClick": [{"action": "showConnectModal", "args": []}]
+      "onClick": [
+        {
+          "action": "showConnectModal",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Open Right Menu",
-      "onClick": [{"action": "openRightDrawer", "args": []}]
+      "onClick": [
+        {
+          "action": "openRightDrawer",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Attach file or repo",
-      "onClick": [{"action": "showConnectModal", "args": []}]
+      "onClick": [
+        {
+          "action": "showConnectModal",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Agent 2.5",
-      "onClick": [{"action": "showToast", "args": ["Active Engine: Agent 2.5 Standard"]}]
+      "onClick": [
+        {
+          "action": "showToast",
+          "args": [
+            "Active Engine: Agent 2.5 Standard"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": null,
-      "onClick": [{"action": "showToast", "args": ["Listening for voice prompt..."]}]
+      "onClick": [
+        {
+          "action": "showToast",
+          "args": [
+            "Listening for voice prompt..."
+          ]
+        }
+      ]
     },
     {
       "tag": "div",
       "id": null,
       "label": "New Chat Start from scratch",
-      "onClick": [{"action": "showToast", "args": ["Creating new agent session..."]}]
+      "onClick": [
+        {
+          "action": "showToast",
+          "args": [
+            "Creating new agent session..."
+          ]
+        }
+      ]
     },
     {
       "tag": "div",
       "id": null,
       "label": "Automations Run in background",
-      "onClick": [{"action": "switchScreen", "args": ["projects"]}]
+      "onClick": [
+        {
+          "action": "switchScreen",
+          "args": [
+            "projects"
+          ]
+        }
+      ]
     },
     {
       "tag": "div",
       "id": null,
       "label": "Codebase Connect repo",
-      "onClick": [{"action": "showConnectModal", "args": []}]
+      "onClick": [
+        {
+          "action": "showConnectModal",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Connect Source",
-      "onClick": [{"action": "showConnectModal", "args": []}]
+      "onClick": [
+        {
+          "action": "showConnectModal",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "div",
       "id": null,
       "label": "Interactive Chat Flow Agent Standard Starter …",
-      "onClick": [{"action": "switchScreen", "args": ["detail"]}]
+      "onClick": [
+        {
+          "action": "switchScreen",
+          "args": [
+            "detail"
+          ]
+        }
+      ]
     },
     {
       "tag": "div",
       "id": null,
       "label": "Scheduled CI/CD Automation Connect repo to en…",
-      "onClick": [{"action": "showConnectModal", "args": []}]
+      "onClick": [
+        {
+          "action": "showConnectModal",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": null,
-      "onClick": [{"action": "showToast", "args": ["Search active templates..."]}]
+      "onClick": [
+        {
+          "action": "showToast",
+          "args": [
+            "Search active templates..."
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Open Right Menu",
-      "onClick": [{"action": "openRightDrawer", "args": []}]
+      "onClick": [
+        {
+          "action": "openRightDrawer",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "All",
-      "onClick": [{"action": "setProjectFilter", "args": ["$element", "all"]}]
+      "onClick": [
+        {
+          "action": "setProjectFilter",
+          "args": [
+            "$element",
+            "all"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Agents",
-      "onClick": [{"action": "setProjectFilter", "args": ["$element", "agents"]}]
+      "onClick": [
+        {
+          "action": "setProjectFilter",
+          "args": [
+            "$element",
+            "agents"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Automations",
-      "onClick": [{"action": "setProjectFilter", "args": ["$element", "automations"]}]
+      "onClick": [
+        {
+          "action": "setProjectFilter",
+          "args": [
+            "$element",
+            "automations"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Repos",
-      "onClick": [{"action": "setProjectFilter", "args": ["$element", "repos"]}]
+      "onClick": [
+        {
+          "action": "setProjectFilter",
+          "args": [
+            "$element",
+            "repos"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Connect GitHub / GitLab",
-      "onClick": [{"action": "showConnectModal", "args": []}]
+      "onClick": [
+        {
+          "action": "showConnectModal",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Explore Demo Template",
-      "onClick": [{"action": "switchScreen", "args": ["detail"]}]
+      "onClick": [
+        {
+          "action": "switchScreen",
+          "args": [
+            "detail"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": null,
-      "onClick": [{"action": "switchScreen", "args": ["projects"]}]
+      "onClick": [
+        {
+          "action": "switchScreen",
+          "args": [
+            "projects"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Open Project Options",
-      "onClick": [{"action": "openRightDrawer", "args": []}]
+      "onClick": [
+        {
+          "action": "openRightDrawer",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Commits",
-      "onClick": [{"action": "showToast", "args": ["Connect repo to see commit history"]}]
+      "onClick": [
+        {
+          "action": "showToast",
+          "args": [
+            "Connect repo to see commit history"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Automations",
-      "onClick": [{"action": "showToast", "args": ["Automations ready to configure"]}]
+      "onClick": [
+        {
+          "action": "showToast",
+          "args": [
+            "Automations ready to configure"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Run Template Agent",
-      "onClick": [{"action": "triggerRunAgent", "args": []}]
+      "onClick": [
+        {
+          "action": "triggerRunAgent",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": "tab-home",
       "label": "Home",
-      "onClick": [{"action": "switchScreen", "args": ["home"]}]
+      "onClick": [
+        {
+          "action": "switchScreen",
+          "args": [
+            "home"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": "tab-projects",
       "label": "Projects",
-      "onClick": [{"action": "switchScreen", "args": ["projects"]}]
+      "onClick": [
+        {
+          "action": "switchScreen",
+          "args": [
+            "projects"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": "tab-automations",
       "label": "Automations",
-      "onClick": [{"action": "showToast", "args": ["Connect repository to enable live automations"]}]
+      "onClick": [
+        {
+          "action": "showToast",
+          "args": [
+            "Connect repository to enable live automations"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": "tab-account",
       "label": "Account",
-      "onClick": [{"action": "showConnectModal", "args": []}]
+      "onClick": [
+        {
+          "action": "showConnectModal",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "✕",
-      "onClick": [{"action": "hideConnectModal", "args": []}]
+      "onClick": [
+        {
+          "action": "hideConnectModal",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "GH Continue with GitHub Public & private repo…",
-      "onClick": [{"action": "simulateConnect", "args": ["GitHub"]}]
+      "onClick": [
+        {
+          "action": "simulateConnect",
+          "args": [
+            "GitHub"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "GL Continue with GitLab Self-hosted or cloud …",
-      "onClick": [{"action": "simulateConnect", "args": ["GitLab"]}]
+      "onClick": [
+        {
+          "action": "simulateConnect",
+          "args": [
+            "GitLab"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "✕",
-      "onClick": [{"action": "hideLoginModal", "args": []}]
+      "onClick": [
+        {
+          "action": "hideLoginModal",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Continue with GitHub Sign in with your GitHub…",
-      "onClick": [{"action": "simulateLogin", "args": ["GitHub"]}]
+      "onClick": [
+        {
+          "action": "simulateLogin",
+          "args": [
+            "GitHub"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Continue with Google Sign in with your Google…",
-      "onClick": [{"action": "simulateLogin", "args": ["Google"]}]
+      "onClick": [
+        {
+          "action": "simulateLogin",
+          "args": [
+            "Google"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Continue with AGENSDKDOS ID Sign in with emai…",
-      "onClick": [{"action": "simulateLogin", "args": ["AGENSDKDOS ID"]}]
+      "onClick": [
+        {
+          "action": "simulateLogin",
+          "args": [
+            "AGENSDKDOS ID"
+          ]
+        }
+      ]
     },
     {
       "tag": "div",
       "id": "right-drawer-overlay",
       "label": "Right drawer overlay backdrop (click outside to close)",
-      "onClick": [{"action": "closeRightDrawer", "args": ["$event"]}]
+      "onClick": [
+        {
+          "action": "closeRightDrawer",
+          "args": [
+            "$event"
+          ]
+        }
+      ]
     },
     {
       "tag": "aside",
       "id": "right-drawer-panel",
       "label": "Right drawer panel (stops click from bubbling to overlay)",
-      "onClick": [{"native": "event.stopPropagation()"}]
+      "onClick": [
+        {
+          "native": "event.stopPropagation()"
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": null,
-      "onClick": [{"action": "closeRightDrawer", "args": []}]
+      "onClick": [
+        {
+          "action": "closeRightDrawer",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "div",
       "id": null,
       "label": "SD Default Sandbox Standalone Runtime Ready",
-      "onClick": [{"action": "showToast", "args": ["Active Workspace: Sandbox 01"]}]
+      "onClick": [
+        {
+          "action": "showToast",
+          "args": [
+            "Active Workspace: Sandbox 01"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "AS AGENSDKLABDOS",
-      "onClick": [{"action": "handleDrawerServiceClick", "args": ["AGENSDKLABDOS", "agensdklab-core/runtime-agent"]}]
+      "onClick": [
+        {
+          "action": "handleDrawerServiceClick",
+          "args": [
+            "AGENSDKLABDOS",
+            "agensdklab-core/runtime-agent"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "GPT CHATGPT (GPT-4o)",
-      "onClick": [{"action": "handleDrawerServiceClick", "args": ["CHATGPT", "openai/gpt-4o-pipeline"]}]
+      "onClick": [
+        {
+          "action": "handleDrawerServiceClick",
+          "args": [
+            "CHATGPT",
+            "openai/gpt-4o-pipeline"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "CL CLAUDE AI (Sonnet)",
-      "onClick": [{"action": "handleDrawerServiceClick", "args": ["CLAUDE AI", "anthropic/claude-3.5-sonnet"]}]
+      "onClick": [
+        {
+          "action": "handleDrawerServiceClick",
+          "args": [
+            "CLAUDE AI",
+            "anthropic/claude-3.5-sonnet"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "CR CURSOR Editor API",
-      "onClick": [{"action": "handleDrawerServiceClick", "args": ["CURSOR", "cursor-sh/workspace-indexer"]}]
+      "onClick": [
+        {
+          "action": "handleDrawerServiceClick",
+          "args": [
+            "CURSOR",
+            "cursor-sh/workspace-indexer"
+          ]
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "API Keys & Secrets",
-      "onClick": [{"action": "showToast", "args": ["Opening API Key Vault..."]}, {"action": "closeRightDrawer", "args": []}]
+      "onClick": [
+        {
+          "action": "showToast",
+          "args": [
+            "Opening API Key Vault..."
+          ]
+        },
+        {
+          "action": "closeRightDrawer",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Git Providers & Repos",
-      "onClick": [{"action": "showConnectModal", "args": []}, {"action": "closeRightDrawer", "args": []}]
+      "onClick": [
+        {
+          "action": "showConnectModal",
+          "args": []
+        },
+        {
+          "action": "closeRightDrawer",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Quota & Metrics Free Tier",
-      "onClick": [{"action": "showToast", "args": ["Token usage: 1.2M tokens remaining"]}, {"action": "closeRightDrawer", "args": []}]
+      "onClick": [
+        {
+          "action": "showToast",
+          "args": [
+            "Token usage: 1.2M tokens remaining"
+          ]
+        },
+        {
+          "action": "closeRightDrawer",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Sandboxes & Containers",
-      "onClick": [{"action": "showToast", "args": ["Sandboxes: Isolated micro-VM active"]}, {"action": "closeRightDrawer", "args": []}]
+      "onClick": [
+        {
+          "action": "showToast",
+          "args": [
+            "Sandboxes: Isolated micro-VM active"
+          ]
+        },
+        {
+          "action": "closeRightDrawer",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Documentation & Guides",
-      "onClick": [{"action": "showToast", "args": ["Version documentation loaded"]}, {"action": "closeRightDrawer", "args": []}]
+      "onClick": [
+        {
+          "action": "showToast",
+          "args": [
+            "Version documentation loaded"
+          ]
+        },
+        {
+          "action": "closeRightDrawer",
+          "args": []
+        }
+      ]
     },
     {
       "tag": "button",
       "id": null,
       "label": "Environment Settings",
-      "onClick": [{"action": "showToast", "args": ["System settings initialized"]}, {"action": "closeRightDrawer", "args": []}]
+      "onClick": [
+        {
+          "action": "showToast",
+          "args": [
+            "System settings initialized"
+          ]
+        },
+        {
+          "action": "closeRightDrawer",
+          "args": []
+        }
+      ]
     }
   ]
 }
